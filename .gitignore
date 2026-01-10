@@ -1,0 +1,9 @@
+### all ignore ###
+/*
+/.**
+
+### not ignore ###
+!/.config/
+!/.config/wezterm/**
+!.gitignore
+!README.md
