@@ -4,6 +4,7 @@
 
 ### not ignore ###
 !/.config/
+!/.config/wezterm/
 !/.config/wezterm/**
 !.gitignore
 !README.md
