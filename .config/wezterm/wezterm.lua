@@ -9,6 +9,8 @@ config.macos_window_background_blur = 7
 
 config.color_scheme = "catppuccin-mocha"
 
+config.force_reverse_video_cursor = true
+
 ----------------------------------------------------
 -- Tab
 ----------------------------------------------------
