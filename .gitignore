@@ -5,6 +5,8 @@
 ### not ignore ###
 !/.config/
 !/.config/**
+!/.config/nvim/
+!/.config/nvim/**
 !/.config/wezterm/
 !/.config/wezterm/**
 !/.starship.toml
