@@ -4,7 +4,9 @@
 
 ### not ignore ###
 !/.config/
+!/.config/**
 !/.config/wezterm/
 !/.config/wezterm/**
+!/.starship.toml
 !.gitignore
 !README.md
