@@ -3,6 +3,12 @@ local config = wezterm.config_builder()
 
 config.automatically_reload_config = true
 config.font_size = 21.0
+config.font = wezterm.font("Moralerspace Argon HWNF", {
+	stretch = "Normal",
+	weight = "Regular",
+	bold = false,
+	italic = false,
+})
 config.use_ime = true
 config.window_background_opacity = 0.55
 config.macos_window_background_blur = 7
