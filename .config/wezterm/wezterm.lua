@@ -3,19 +3,21 @@ local config = wezterm.config_builder()
 
 config.automatically_reload_config = true
 config.font_size = 21.0
-config.font = wezterm.font("Moralerspace Argon HWNF", {
+config.font = wezterm.font("Moralerspace Argon HW", {
 	stretch = "Normal",
 	weight = "Regular",
 	bold = false,
 	italic = false,
 })
 config.use_ime = true
-config.window_background_opacity = 0.55
-config.macos_window_background_blur = 7
+config.window_background_opacity = 0.45
+config.macos_window_background_blur = 20
 
 config.color_scheme = "catppuccin-mocha"
 
 config.force_reverse_video_cursor = true
+
+config.default_cwd = "/Users/ohnumasota/code"
 
 ----------------------------------------------------
 -- Tab
