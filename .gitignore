@@ -12,3 +12,8 @@
 !/.starship.toml
 !.gitignore
 !README.md
+!/setup.sh
+!/.github/
+!/.github/**
+!/zsh/
+!/zsh/**

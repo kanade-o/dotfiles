@@ -1,0 +1,21 @@
+# ls
+alias ls='ls -GF'
+alias ll='ls -ahGFl'
+
+# vi mode
+bindkey -v
+bindkey -M viins 'jk' vi-cmd-mode
+export KEYTIMEOUT=30
+bindkey -M viins '^?' backward-delete-char
+bindkey -M viins '^H' backward-delete-char
+bindkey -M viins '^W' backward-kill-word
+bindkey -M viins '^U' backward-kill-line
+bindkey -M vicmd 'u' undo
+
+eval "$(starship init zsh)"
+
+chpwd() {
+  if [[ $(pwd) != "$HOME" ]]; then
+    ll
+  fi
+}
