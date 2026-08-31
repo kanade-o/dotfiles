@@ -1,0 +1,47 @@
+name: Verify dotfiles
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  setup:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Check shell syntax
+        run: |
+          bash -n setup.sh
+          zsh -n zsh/zshrc
+          zsh -n zsh/zprofile
+
+      - name: Run setup twice in an isolated home directory
+        shell: bash
+        run: |
+          set -euo pipefail
+          test_home="$RUNNER_TEMP/dotfiles-home"
+          mkdir -p "$test_home"
+          HOME="$test_home" ./setup.sh
+          HOME="$test_home" ./setup.sh
+
+      - name: Verify links and Zsh configuration
+        shell: zsh {0}
+        run: |
+          set -euo pipefail
+          test_home="$RUNNER_TEMP/dotfiles-home"
+          expected_root="$GITHUB_WORKSPACE"
+
+          [[ "$(readlink "$test_home/.config/nvim")" == "$expected_root/.config/nvim" ]]
+          [[ "$(readlink "$test_home/.config/wezterm")" == "$expected_root/.config/wezterm" ]]
+          [[ "$(readlink "$test_home/.config/starship.toml")" == "$expected_root/.config/starship.toml" ]]
+          [[ "$(readlink "$test_home/.zshrc")" == "$expected_root/zsh/zshrc" ]]
+          [[ "$(readlink "$test_home/.zprofile")" == "$expected_root/zsh/zprofile" ]]
+
+          HOME="$test_home" zsh -n "$test_home/.zshrc"
+          HOME="$test_home" zsh -lic 'command -v brew; alias ls | grep -F -- "ls -GF"; alias ll | grep -F -- "ls -ahGFl"; [[ "$KEYTIMEOUT" == 30 ]]; bindkey -M viins "jk" | grep -F vi-cmd-mode; bindkey -M viins "^?" | grep -F backward-delete-char; bindkey -M viins "^H" | grep -F backward-delete-char; bindkey -M viins "^W" | grep -F backward-kill-word; bindkey -M viins "^U" | grep -F backward-kill-line; bindkey -M vicmd u | grep -F undo; cd "$HOME"; output="$(cd "$HOME/.config")"; grep -F nvim <<< "$output"; [[ "$(whence -w chpwd)" == "chpwd: function" ]]'
